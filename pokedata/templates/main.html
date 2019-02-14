@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pokedex</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            for (var i = 1; i <= 807; i++) {
+                $("#pokemon").append(`<img src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png' id = '${i}'/>`);
+            }
+            $("img").click(function () {
+                $("#info").html("<h2>Loading....</h2>");
+                var id = $(this).attr("id");
+                $.ajax({
+                    url: "/pokemon/" + id,
+                    method: "get",
+                    success: function(data){
+                        $("#info").html(data);
+                    }
+                },"json");
+            });
+        });
+    </script>
+    <style>
+        #pokemon {
+            display: inline-block;
+            width: 980px;
+            vertical-align: top;
+        }
+        #info {
+            display: inline-block;
+            width: 300px;
+            vertical-align: top;
+            margin-right: 15px;
+            position: fixed;
+            overflow: auto;
+            height: 600px;
+            padding-bottom: 20px;
+            background-color: rgb(204, 228, 236);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        #info p {
+            padding-left: 15px;
+        }
+        #info h1 {
+            text-align: center;
+        }
+        #info img {
+            margin-left: 30%;
+        }
+        #info ul {
+            list-style: none;
+            padding: 0px;
+            padding-left: 15px;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "wrapper">
+        <div id = "pokemon"></div>
+        <div id = "info">
+            <p style = "font-size: 20px;">Welcome to the Pokedex app! Click on the Pokemon images on the left to get information about
+            each of the Pokemon, which will be displayed in this box! The information is gathered from
+            the <a target = "_blank" href = "https://pokeapi.co/">Pokemon API website</a>, while the
+            images are from the <a target = "_blank" href = "https://github.com/PokeAPI/sprites/">
+            Pokemon API Github</a>.</p>
+        </div>
+    </div>
+</body>
+</html>

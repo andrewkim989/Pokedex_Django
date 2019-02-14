@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    {% load hyphenSpace %}
+    
+    <h1>{{name}}</h1>
+    <img src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{num}}.png"/>
+
+    <h3>Types</h3>
+    <ul>
+        {% for type in types %}
+            <li>{{type.type.name | title}}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Height</h3>
+    <p>{{height}}</p>
+
+    <h3>Weight</h3>
+    <p>{{weight}}</p>
+
+    <h3>Abilities</h3>
+    <ul>
+        {% for ability in abilities reversed %}
+            <li>{{ability.ability.name | title | hyphenSpace}}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Appearances</h3>
+    <ul>
+        {% for a in appearances reversed %}
+            <li>Pokemon: {{a.version.name | title | hyphenSpace}}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Base Experience</h3>
+    <p>{{experience}}</p>
+
+    <h3>Stats</h3>
+    <ul>
+        {% for stat in stats reversed %}
+            {% if stat.stat.name == "hp" %}
+                <li>HP: {{stat.base_stat}}</li>
+            {% else %}
+                <li>{{stat.stat.name | title | hyphenSpace}}: {{stat.base_stat}}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h3>Moves</h3>
+    <ul>
+        {% for move in moves %}
+            <li>{{move.move.name | title | hyphenSpace}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
